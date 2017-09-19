@@ -40,6 +40,7 @@
 		<property name="port" value="6379" />
 		<!-- 指定存储所在数据库 -->
 		<property name="database" value="13" />
+		<property name="poolConfig" ref="poolConfig" />
 	</bean>
 
 	<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
