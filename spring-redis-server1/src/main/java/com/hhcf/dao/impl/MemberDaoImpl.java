@@ -3,6 +3,7 @@ package com.hhcf.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -25,6 +26,7 @@ import com.hhcf.entity.Member;
  */
 @Repository("memberDao")
 public class MemberDaoImpl implements MemberDao {
+	private static Logger logger = Logger.getLogger(MemberDaoImpl.class);
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 	// /**
@@ -50,15 +52,21 @@ public class MemberDaoImpl implements MemberDao {
 	 */
 	@Override
 	public boolean add(final String id) {
-		boolean result = stringRedisTemplate.execute(new RedisCallback<Boolean>() {
-			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
-				RedisSerializer<String> serializer = getRedisSerializer();
-				byte[] key = serializer.serialize(id);
-				byte[] name = serializer.serialize(id + "昵称");
-				return connection.setNX(key, name);
-			}
-		});
-		return result;
+		logger.info("执行结果11-" + id + ":" + stringRedisTemplate.opsForValue().get(id));
+		stringRedisTemplate.opsForValue().set(id, id + "aa中方a");
+		logger.info("执行结果22-" + id + ":" + stringRedisTemplate.opsForValue().get(id));
+
+		// boolean result = stringRedisTemplate.execute(new
+		// RedisCallback<Boolean>() {
+		// public Boolean doInRedis(RedisConnection connection) throws
+		// DataAccessException {
+		// RedisSerializer<String> serializer = getRedisSerializer();
+		// byte[] key = serializer.serialize(id);
+		// byte[] name = serializer.serialize(id + "昵称");
+		// return connection.setNX(key, name);
+		// }
+		// });
+		return false;
 	}
 
 	/**
