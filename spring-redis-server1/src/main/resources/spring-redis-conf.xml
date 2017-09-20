@@ -30,6 +30,11 @@
 		<property name="minEvictableIdleTimeMillis" value="${redis.minEvictableIdleTimeMillis}" />
 	</bean>
 
+	<bean id="redisHttpSessionConfiguration"
+		class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+		<property name="maxInactiveIntervalInSeconds" value="120" />
+	</bean>
+
 	<!-- <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" 
 		p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}" 
 		p:pool-config-ref="poolConfig" p:database=${redis.database} /> -->

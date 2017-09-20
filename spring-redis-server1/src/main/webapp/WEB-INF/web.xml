@@ -19,6 +19,17 @@
 	</context-param>
 
 
+	<!-- redis-session start		 -->
+	<filter>
+	    <filter-name>springSessionRepositoryFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>springSessionRepositoryFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- redis-session  end  -->
+	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -58,17 +69,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- redis-session start	
-	<filter>
-	    <filter-name>myFilter</filter-name>
-	    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-	<filter-mapping>
-	    <filter-name>myFilter</filter-name>
-	    <url-pattern>*.do</url-pattern>
-	</filter-mapping>
-	 -->
-	<!-- redis-session  end  -->
 
 	<listener>
 		<description>spring监听器</description>

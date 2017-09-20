@@ -18,7 +18,8 @@ import com.hhcf.entity.UserEntity;
 /**
  * 
  * @Title: IndexController
- * @Description:Spring-Session+Redis实现session共享
+ * @Description:Spring-Session+Redis实现session共享 redis3.2.6
+ * @see http://www.cnblogs.com/qlong8807/p/5557271.html 以此为主
  * @see http://www.cnblogs.com/andyfengzp/p/6434287.html
  * @Author: zhaotf
  * @Since:2017年9月19日 上午10:01:28
@@ -40,18 +41,20 @@ public class IndexController {
 	@RequestMapping("login")
 	@ResponseBody
 	public String login(HttpServletRequest request, String username) {
-		logger.info("登录用户:" + username);
-		request.getSession().setAttribute("user", gson.toJson(new UserEntity(username, "123456")));
+		logger.info("登录用户sessionId:" + request.getSession().getId() + "," + username);
+		// request.getSession().setAttribute("user", gson.toJson(new
+		// UserEntity(username, "123456")));
+		request.getSession().setAttribute(username, request.getSession().getId() + "123456");
 		return "login";
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "index")
-	public Object index(HttpServletRequest request, Model model) {
-		UserEntity user = gson.fromJson(request.getSession().getAttribute("user").toString(), UserEntity.class);
-		// logger.info("登录用户:" + username);
+	public Object index(HttpServletRequest request, String username) {
+		logger.info("校验用户sessionId:" + request.getSession().getId() + "," + username);
+		String jsonStr = (String) request.getSession().getAttribute(username);
 		Map<String, Object> map = new HashMap<>();
-		map.put("user", user);
+		map.put("user", jsonStr);
 		return map;
 	}
 
