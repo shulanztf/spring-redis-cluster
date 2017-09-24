@@ -40,7 +40,7 @@
 		p:pool-config-ref="poolConfig" p:database=${redis.database} /> -->
 	<bean id="connectionFactory"
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<property name="hostName" value="192.168.159.131" />
+		<property name="hostName" value="192.168.0.126" />
 		<property name="password" value="123456" />
 		<property name="port" value="6379" />
 		<!-- 指定存储所在数据库 -->
